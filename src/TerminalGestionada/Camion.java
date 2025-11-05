@@ -4,14 +4,29 @@ import java.time.*;
 
 public class Camion {
 	
-	int Identificador;
-	String Chofer;
+	String identificador;
+	String chofer;
 	Container container;
-	Instant horaAsignada;
 	
+	LocalDateTime horaAsignada;
+	String empresaTransportista;
 	
-	public Camion() {
-		// TODO Auto-generated constructor stub
-	}
 
+	
+	public Camion(String identidad, String chofer, Container container, LocalDateTime horaAsignada, String empresa) {
+		identificador = identidad;
+		this.chofer = chofer;
+		this.container = container;
+		this.horaAsignada = horaAsignada;
+		empresaTransportista = empresa;
+	}
+	
+	
+	void llegarConCarga(TerminalPortuaria terminal) {
+		terminal.arriboCamionShipper(this);
+	}
+	
+	void llegarSinCarga(TerminalPortuaria terminal) {
+		terminal.arriboCamionConsignee(this, );
+	}
 }
