@@ -6,13 +6,12 @@ import java.util.List;
 public class LineaNaviera {
 
     private String nombre;
-    private List<Buque> buques;
-    private List<CircuitoMaritimo> circuitos;
+    private List<Buque> buques = new ArrayList<>();
+    private List<CircuitoMaritimo> circuitos = new ArrayList<>();
+    private double precioPorTramo = 500.0; // precio fijo por tramo entre puertos
 
     public LineaNaviera(String nombre) {
         this.nombre = nombre;
-        this.buques = new ArrayList<>();
-        this.circuitos = new ArrayList<>();
     }
 
     // Metodos principales
@@ -29,12 +28,23 @@ public class LineaNaviera {
         }
     }
 
-    public List<Buque> getBuques() {
-        return new ArrayList<>(buques);
+    // si es que la linea naviera puede tener circuitos que no incluyan a la terminal y nos sirva contemplar esos casos
+    public List<CircuitoMaritimo> circuitosQueIncluyenTerminal(TerminalPortuaria terminal) {
+        List<CircuitoMaritimo> resultado = 
+            circuitos.stream()
+                     .filter(circuito -> circuito.estaEnElRecorrido(terminal))
+                     .toList();
+        return resultado;
     }
 
-    public List<CircuitoMaritimo> getCircuitos() {
-        return new ArrayList<>(circuitos);
+
+    public double tiempoDeRecorridoDesde_Hasta_(TerminalPortuaria origen, TerminalPortuaria destino) {
+        for (CircuitoMaritimo circuito : circuitos) {
+            if (circuito.estanEnElRecorrido(origen, destino)) {
+                return circuito.tiempoDeRecorridoEntre(origen, destino);
+            }
+        }
+        throw new IllegalArgumentException("No hay ningún circuito que conecte los puertos dados.");
     }
 
     // Devuelve la cantidad total de contenedores operados por todos los buques de la naviera.
@@ -46,6 +56,14 @@ public class LineaNaviera {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public List<Buque> getBuques() {
+        return buques;
+    }
+
+    public List<CircuitoMaritimo> getCircuitos() {
+        return circuitos;
     }
 
 }

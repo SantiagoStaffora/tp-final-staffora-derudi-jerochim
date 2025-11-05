@@ -3,23 +3,37 @@ package TerminalPortuaria;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.time.LocalDate;
 
 public class CircuitoMaritimo {
 
     private String nombre;
-    private ArrayList<TerminalPortuaria> puertos;  // podría ser una lista de TramoMaritimo si aplicás Composite
-    private double distanciaTotal; // en millas náuticas
+    private ArrayList<TerminalPortuaria> puertos = new ArrayList<>();
+    private double distanciaTotal = 0; // en millas náuticas
+    private double tiempoDeRecorridoPorTramo; // horas promedio por tramo entre puertos
+    private LocalDate fechaHoraInicio;
 
-    public CircuitoMaritimo(String nombre) {
+    public CircuitoMaritimo(String nombre, double tiempoDeRecorridoPorTramo, Localdate fechaHoraInicio) {
         this.nombre = nombre;
-        this.puertos = new ArrayList<>();
-        this.distanciaTotal = 0;
+        this.tiempoDeRecorridoPorTramo = tiempoDeRecorridoPorTramo;
+        this.fechaHoraInicio = fechaHoraInicio;
     }
     
     public boolean estanEnElRecorrido(TerminalPortuaria origen, TerminalPortuaria destino) {
     	return puertos.contains(origen) && puertos.contains(destino);
     }
+    public boolean estaEnElRecorrido(TerminalPortuaria terminal) {
+    	return puertos.contains(terminal);
+    }
+
+
+    // calcula el tiempo de recorrido entre dos puertos en el circuito
+    public double tiempoDeRecorridoEntre(TerminalPortuaria origen, TerminalPortuaria destino) {
+        int tramos = tramosHasta(origen, destino);
+        return tramos * tiempoDeRecorridoPorTramo;
+    }
     
+    // calcula distancia entre una terminal y otra siguiendo el recorrido del circuito
     public double distanciaEntre(TerminalPortuaria origen, TerminalPortuaria destino) {
         int indexOrigen = puertos.indexOf(origen);
         int indexDestino = puertos.indexOf(destino);
@@ -34,13 +48,21 @@ public class CircuitoMaritimo {
         while (i != indexDestino) {
             TerminalPortuaria actual = puertos.get(i);
             TerminalPortuaria siguiente = puertos.get((i + 1) % puertos.size());
-            distancia += actual.distanciaCon(siguiente);
+            distancia += this.distanciaCon(actual, siguiente);
             i = (i + 1) % puertos.size(); // avanzamos circularmente
         }
 
         return distancia;
     }
+
+    // calcula distancia entre una terminal y otra de manera directa (no siguiendo el circuito)
+    public double distanciaCon(TerminalPortuaria origen, TerminalPortuaria destino) {
+        double difLat = origen.getLatitud() - destino.getLatitud();
+        double difLon = origen.getLongitud() - destino.getLongitud();
+        return Math.sqrt(difLat * difLat + difLon * difLon);
+    }
     
+    // cantidad de tramos entre dos puertos en el circuito
     public int tramosHasta(TerminalPortuaria origen, TerminalPortuaria destino) {
     	int indexOrigen = puertos.indexOf(origen);
         int indexDestino = puertos.indexOf(destino);
@@ -55,19 +77,7 @@ public class CircuitoMaritimo {
         }
         
         return tramos;
-    }
-
-    public void agregarPuerto(TerminalPortuaria puerto) {
-        puertos.add(puerto);
-        recalcularDistancia();
-    }
-
-    public void eliminarPuerto(TerminalPortuaria puerto) {
-        puertos.remove(puerto);
-        recalcularDistancia();
-    }
-    
-    
+    }   
 
     // Recalcula la distancia total del circuito, en base a los tramos consecutivos.
     private void recalcularDistancia() {
@@ -89,14 +99,22 @@ public class CircuitoMaritimo {
         distanciaTotal = total;
     }
     
-    
-    
     // Devuelve el siguiente puerto en el circuito.
     // Si el actual es el último, retorna el primero (estructura circular).
     public TerminalPortuaria siguientePuerto(TerminalPortuaria actual) {
         int index = puertos.indexOf(actual);
         if (index == -1 || puertos.isEmpty()) return null;
         return puertos.get((index + 1) % puertos.size()); // Si estás en el último puerto, el siguiente vuelve automáticamente al primero.
+    }
+
+    public void agregarPuerto(TerminalPortuaria puerto) {
+        puertos.add(puerto);
+        recalcularDistancia();
+    }
+
+    public void eliminarPuerto(TerminalPortuaria puerto) {
+        puertos.remove(puerto);
+        recalcularDistancia();
     }
 
     public double getDistanciaTotal() {
@@ -109,5 +127,9 @@ public class CircuitoMaritimo {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Localdate getFechaHoraInicio() {
+        return fechaHoraInicio;
     }
 }
