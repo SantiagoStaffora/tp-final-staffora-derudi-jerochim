@@ -16,10 +16,19 @@ public class LineaNaviera {
     }
 
     // si es que la linea naviera puede tener circuitos que no incluyan a la terminal y nos sirva contemplar esos casos
-    public List<CircuitoMaritimo> circuitosQueIncluyenTerminal(TerminalPortuaria terminal) {
+    public List<CircuitoMaritimo> circuitosQueIncluyenTerminales(TerminalPortuaria origen, TerminalPortuaria destino) {
         List<CircuitoMaritimo> resultado = 
             circuitos.stream()
-                     .filter(circuito -> circuito.estaEnElRecorrido(terminal))
+                     .filter(circuito -> circuito.estanEnElRecorrido(origen, destino))
+                     .toList();
+        return resultado;
+    }
+    
+    // en singular
+    public List<CircuitoMaritimo> circuitosQueIncluyenTerminal(TerminalPortuaria origen) {
+        List<CircuitoMaritimo> resultado = 
+            circuitos.stream()
+                     .filter(circuito -> circuito.estaEnElRecorrido(origen))
                      .toList();
         return resultado;
     }
@@ -55,7 +64,7 @@ public class LineaNaviera {
 
     // VERIFICAR SI ES NECESARIO ESTO
     // Asigna un buque a un circuito marítimo dentro de la línea naviera.
-    public void asignarBuqueACircuito(Buque buque, CircuitoMaritimo circuito) {
+    /* public void asignarBuqueACircuito(Buque buque, CircuitoMaritimo circuito) {
         if (!buques.contains(buque)) {
             throw new IllegalArgumentException("El buque no pertenece a esta línea naviera.");
         }
@@ -64,19 +73,20 @@ public class LineaNaviera {
         }
         buque.asignarACircuito(circuito); // este
         circuito.asignarBuque(buque);     // o este
-    }
+    } */
 
     // Busca y devuelve un circuito marítimo por su nombre.
-    public CircuitoMaritimo buscarCircuitoMaritimo(String nombreCircuito) {
+    public CircuitoMaritimo buscarCircuitoMaritimo(String nombreCircuito) throws IllegalArgumentException {
         for (CircuitoMaritimo circuito : circuitos) {
             if (circuito.getNombre().equals(nombreCircuito)) {
                 return circuito;
             }
         }
-        return IllegalArgumentException("No se encontró ningún circuito con el nombre proporcionado.");
+        throw new IllegalArgumentException("No se encontró ningún circuito con el nombre proporcionado.");
     }
 
-    public double totalDistanciaDeTodosLosCircuitos() {
+
+	public double totalDistanciaDeTodosLosCircuitos() {
         double total = 0.0;
         for (CircuitoMaritimo circuito : circuitos) {
             total += circuito.getDistanciaTotal();

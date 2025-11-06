@@ -26,7 +26,7 @@ public class CircuitoMaritimoTest {
 
     @Test
     public void testAgregarPuertosYRecalculoDeDistancia() {
-        double esperado = t1.distanciaCon(t2) + t2.distanciaCon(t3) + t3.distanciaCon(t4) + t4.distanciaCon(t1);
+        double esperado = circuito.distanciaCon(t1, t2) + circuito.distanciaCon(t2, t3) + circuito.distanciaCon(t3, t4) + circuito.distanciaCon(t4, t1);
         assertEquals(esperado, circuito.getDistanciaTotal(), 0.0001);
     }
 
@@ -49,7 +49,7 @@ public class CircuitoMaritimoTest {
 
     @Test
     public void testDistanciaEntreCalculaBienSiguiendoCircuito() {
-        double esperado = t1.distanciaCon(t2) + t2.distanciaCon(t3);
+        double esperado = circuito.distanciaCon(t1, t2) + circuito.distanciaCon(t2, t3);
         assertEquals(esperado, circuito.distanciaEntre(t1, t3), 0.0001);
     }
 

@@ -1,4 +1,4 @@
-package terminalportuaria;
+package TerminalPortuaria;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
@@ -12,11 +12,11 @@ public class LineaNavieraTest {
     private CircuitoMaritimo circuito1;
     private CircuitoMaritimo circuito2;
     private TerminalPortuaria t1, t2, t3;
-    private Buque buque1, buque2;
+    private Buque buque1;
 
     @BeforeEach
     public void setUp() {
-        linea = new LineaNaviera("Maersk");
+        linea = new LineaNaviera("Maersk", 50.0);
 
         t1 = new TerminalPortuaria("Buenos Aires", 0, 0);
         t2 = new TerminalPortuaria("Montevideo", 3, 4);
@@ -32,14 +32,13 @@ public class LineaNavieraTest {
         circuito2.agregarPuerto(t2);
         circuito2.agregarPuerto(t3);
 
-        buque1 = new Buque("EverGreen", 200);
-        buque2 = new Buque("MSC Zoe", 300);
+        buque1 = new Buque();
     }
 
     @Test
     public void testAgregarCircuitoYBuque() {
-        linea.agregarCircuito(circuito1);
-        linea.agregarBuque(buque1);
+        linea.registrarCircuito(circuito1);
+        linea.registrarBuque(buque1);
 
         assertTrue(linea.getCircuitos().contains(circuito1));
         assertTrue(linea.getBuques().contains(buque1));
@@ -47,10 +46,10 @@ public class LineaNavieraTest {
 
     @Test
     public void testEvitarDuplicadosEnListas() {
-        linea.agregarCircuito(circuito1);
-        linea.agregarCircuito(circuito1); // duplicado
-        linea.agregarBuque(buque1);
-        linea.agregarBuque(buque1); // duplicado
+        linea.registrarCircuito(circuito1);
+        linea.registrarCircuito(circuito1); // duplicado
+        linea.registrarBuque(buque1);
+        linea.registrarBuque(buque1); // duplicado
 
         assertEquals(1, linea.getCircuitos().size());
         assertEquals(1, linea.getBuques().size());
@@ -58,34 +57,34 @@ public class LineaNavieraTest {
 
     @Test
     public void testBuscarCircuitoPorNombre() {
-        linea.agregarCircuito(circuito1);
-        linea.agregarCircuito(circuito2);
+        linea.registrarCircuito(circuito1);
+        linea.registrarCircuito(circuito2);
 
-        CircuitoMaritimo encontrado = linea.buscarCircuito("AtlanticoNorte");
+        CircuitoMaritimo encontrado = linea.buscarCircuitoMaritimo("AtlanticoNorte");
         assertNotNull(encontrado);
         assertEquals(circuito2, encontrado);
     }
 
     @Test
     public void testCircuitosQuePasanPorPuerto() {
-        linea.agregarCircuito(circuito1);
-        linea.agregarCircuito(circuito2);
+        linea.registrarCircuito(circuito1);
+        linea.registrarCircuito(circuito2);
 
-        List<CircuitoMaritimo> pasanPorT3 = linea.circuitosQuePasanPor(t3);
+        List<CircuitoMaritimo> pasanPorT3 = linea.circuitosQueIncluyenTerminal(t3);
         assertEquals(2, pasanPorT3.size());
 
-        List<CircuitoMaritimo> pasanPorT1 = linea.circuitosQuePasanPor(t1);
+        List<CircuitoMaritimo> pasanPorT1 = linea.circuitosQueIncluyenTerminal(t1);
         assertEquals(1, pasanPorT1.size());
         assertTrue(pasanPorT1.contains(circuito1));
     }
 
     @Test
     public void testTotalDistanciaCircuitos() {
-        linea.agregarCircuito(circuito1);
-        linea.agregarCircuito(circuito2);
+        linea.registrarCircuito(circuito1);
+        linea.registrarCircuito(circuito2);
 
         double esperado = circuito1.getDistanciaTotal() + circuito2.getDistanciaTotal();
-        assertEquals(esperado, linea.totalDistanciaCircuitos(), 0.0001);
+        assertEquals(esperado, linea.totalDistanciaDeTodosLosCircuitos(), 0.0001);
     }
 
 }
