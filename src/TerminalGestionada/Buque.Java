@@ -1,11 +1,13 @@
+import containers.TerminalPortuaria;
+
 public class Buque {
     private GPS gps;
     private FaseBuque faseBuque;
-    private Terminal terminalAArribar;
+    private TerminalPortuaria terminalAArribar;
     private int distanciaDeTerminal;
-    private List<Contenedor> contenedores = new ArrayList<>();
+    private List<Container> contenedores;
 
-    public Buque(GPS gps, FaseBuque faseActual, Terminal terminalAArribar, List<Contenedor> contenedores) {
+    public Buque(GPS gps, FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores) {
         this.gps = gps;
         this.faseBuque = faseActual;
         this.terminalAArribar = terminalAArribar;
@@ -23,28 +25,14 @@ public class Buque {
            this.faseBuque = fase;
     }
 
-    public void realizarOperacionCorrespondiente(Terminal terminalAArribar) {
-           faseBuque.realizarOperacion(Terminal terminalAArribar);
+    public void realizarOperacionCorrespondiente(TerminalPortuaria terminalAArribar) {
+           faseBuque.realizarOperacion(terminalAArribar);
     }
 
-    public void registrarImportaciones() {
-           faseBuque.registrarImportaciones();
+    //------------------------------------------------------------------------------------------------------------//
+
+    public void arribarATerminalConCarga(Container unaCarga, Turno turno) {
+           terminalAArribar.buqueLlegaCon(unaCarga, turno);
     }
-
-    public void registrarExportaciones() {
-           faseBuque.registrarExportaciones();
-    }
-
-    public void realizarPagoDelServicioDeContenedor(Contenedor contenedor) {
-           faseBuque.realizarPagoDelServicioDeContenedor(contenedor);
-    }
-
-    public void pagoServicioDeImportacion() {
-           faseBuque.pagoServicioDeImportacion();
-    }  
-
-    public void pagoServicioDeExportacion() {
-           faseBuque.pagoServicioDeExportacion();
-    } 
     
 }

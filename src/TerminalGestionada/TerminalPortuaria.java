@@ -8,9 +8,17 @@ public class TerminalPortuaria {
 	TurnosExportacion turnosShipper;
 	TurnosImportacion turnosConsignee;
 	List<Container> listaCargas;
+	Camion camionDeCliente;
+	String choferDeCliente;
+	Container cargaDeCliente;
+	int posicion;
 	
 	public TerminalPortuaria() {
 		
+	}
+
+	public int getPosicion() {
+		return this.posicion;
 	}
 
 	void registrarExportacion(Turno turno) {
@@ -42,5 +50,25 @@ public class TerminalPortuaria {
 		}
 		turnosConsignee.eliminarTurnoDe(camion);
 	}
+
+	//--------------------------------------------------------------------------------------//
+	public void buqueLlegaCon(Container unaCarga, Turno turno) {
+		   turnosConsignee.registrarImportacion(unaCarga, turno, this);
+	}
+
+	public void informeSobreCamionYChoferDeCliente(Camion unCamion, String unChofer) {
+		this.camionDeCliente = unCamion;
+		this.choferDeCliente = unChofer;
+	}
+
+	public void depositarCarga(Container unaCarga) {
+       this.cargaDeCliente = unaCarga;
+	}
 	
+	public void camionLlegando(Camion unCamion, String unChofer) { // se debe tirar excepcion?
+		if (unCamion.equals(camionDeCliente) && unChofer.equals(choferDeCliente)) {
+            unCamion.llevarCarga(this.cargaDeCliente);
+			System.out.println("REGISTRO QUE EL CAMION SE LLEVO LA CARGA");
+        } 
+	}
 }
