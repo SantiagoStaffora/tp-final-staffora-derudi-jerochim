@@ -45,6 +45,15 @@ public class Turno {
 	public String getChofer() {
 		return this.chofer;
 	}
+
+	public Container getContainer() {
+		return this.container;
+	}
+
+	//------------------------------------------------------------------------------------------//
+	public double facturaPorServiciosAplicados() {
+		return container.calcularCostoTotal();
+	}
 	
 	
 	
