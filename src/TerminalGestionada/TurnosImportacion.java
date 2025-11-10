@@ -2,6 +2,8 @@ package containers;
 
 import java.util.*;
 
+import containers.TerminalPortuaria;
+
 public class TurnosImportacion extends ListaTurnos {
 
 	public TurnosImportacion(List<Turno> turnos) {
@@ -19,5 +21,15 @@ public class TurnosImportacion extends ListaTurnos {
 				.allMatch(t -> t.diferencia(camion.horaAsignada) <= 3);
 	
 	}
+
+	public void registrarImportacion(Container unaCarga, Turno turno, TerminalPortuaria terminal) {
+		   terminal.depositarCarga(unaCarga);
+		   addTurno(turno);
+		   notificarImportador(turno, terminal);
+	}
+
+	public void notificarImportador(Turno turno, TerminalPortuaria terminal) {
+        turno.getCliente().notificar(turno.getFecha(), terminal);
+    }
 
 }
