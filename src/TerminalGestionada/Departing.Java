@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Departing implements FaseBuque {
     @Override
       public void realizarOperacion(TerminalPortuaria terminalAArribar, Buque buque) {
@@ -12,4 +14,13 @@ public class Departing implements FaseBuque {
                  buque.envioFacturaPorServiciosAplicados();
              }
       }
+
+      @Override
+      public void envioFacturaPorServiciosAplicados(List<Cliente> clientes, List<Container> contenedores) {
+             for (Cliente c : clientes) {
+                 if (contenedores.contains(c.getTurno().getContainer())) {
+                     c.facturaPorCliente();
+                 }
+             } 
+       }
 }

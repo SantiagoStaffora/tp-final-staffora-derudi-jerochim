@@ -1,4 +1,5 @@
 import java.util.List;
+
 public class Buque {
     private GPS gps;
     private FaseBuque faseBuque;
@@ -45,13 +46,16 @@ public class Buque {
     }
 
     //------------------------------------------------------------------------------------------------------------//
-    // FACTURACION DE VIAJES Y SERVICIOS (VER CON SANTI)
+    // FACTURACION DE VIAJES Y SERVICIOS 
+
     public void envioFacturaPorServiciosAplicados() {
-       for (Cliente c : clientes) {
-           if (contenedores.contains(c.getTurno().getContainer())) {
-              c.facturaPorCliente();
-           }
-       }
+        faseBuque.envioFacturaPorServiciosAplicados(clientes, contenedores);
     }
+
+    // public void informar() {
+    //     faseBuque.informar(this);
+    // }
+
+    //-------------------------------------------------------------------------------------------------------------//
     
 }

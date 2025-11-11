@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Working implements FaseBuque {
     @Override
      public void realizarOperacion(TerminalPortuaria terminalAArribar, Buque buque) {
@@ -10,4 +12,9 @@ public class Working implements FaseBuque {
             buque.setFaseBuque(new Departing());
             buque.realizarOperacionCorrespondiente(terminalAArribar);
      }
+
+     @Override
+      public void envioFacturaPorServiciosAplicados(List<Cliente> clientes, List<Container> contenedores) {
+              throw new IllegalArgumentException ("en esta fase no se pueden enviar facturas.");
+      }
 }

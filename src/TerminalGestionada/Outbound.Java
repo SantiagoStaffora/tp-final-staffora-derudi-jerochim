@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Outbound implements FaseBuque {
      @Override
      public void realizarOperacion(TerminalPortuaria terminalAArribar, Buque buque) {
@@ -11,4 +13,14 @@ public class Outbound implements FaseBuque {
               buque.realizarOperacionCorrespondiente(terminalAArribar);
           }
      }
+
+     @Override
+     public void envioFacturaPorServiciosAplicados(List<Cliente> clientes, List<Container> contenedores) {
+          
+     }
+
+     // @Override
+     // public void informar(Buque buque) {
+     //      buque.notifyAll();
+     // }
 }
