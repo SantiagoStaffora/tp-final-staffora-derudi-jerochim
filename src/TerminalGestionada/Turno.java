@@ -27,16 +27,6 @@ public abstract class Turno {
 		return(ChronoUnit.HOURS.between(this.fecha, fechaFin));
 	}
 
-	// ¿Por que el TURNO esta agregando la carga al camion?
-	// Creo que esto no es su responsabilidad.
-	/*
-	public void agregarCarga(Container unaCarga) {
-		
-		this.camion.setCarga(unaCarga);
-		// anteriormente this.container = unaCarga;
-	}
-	*/
-
 	public LocalDateTime getFecha() {
 		return this.fecha;
 	}
@@ -45,11 +35,6 @@ public abstract class Turno {
 		return this.cliente;
 	}
 
-	/*
-	public Camion getCamion() {
-		return this.camion;
-	}
-	*/
 	public String getChofer() {
 		return this.chofer;
 	}
