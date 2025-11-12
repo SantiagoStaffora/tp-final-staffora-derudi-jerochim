@@ -9,8 +9,10 @@ public class TerminalPortuaria {
 	List<Container> listaCargas;
 	int posicion;
 	
-	public TerminalPortuaria() {
-		
+	public TerminalPortuaria(ListaTurnos turnos, List<Container> cargas, int posicion) {
+		listaTurnos = turnos;
+		listaCargas = cargas;
+		this.posicion = posicion
 	}
 
 	public int getPosicion() {
