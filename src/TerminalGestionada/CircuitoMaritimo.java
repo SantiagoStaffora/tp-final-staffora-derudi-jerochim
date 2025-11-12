@@ -104,7 +104,7 @@ public class CircuitoMaritimo {
         }
         
         
-        // 🔁 Cierre del circuito (último → primero)
+        // Cierre del circuito (último → primero)
         total += this.distanciaCon(puertos.get(puertos.size() - 1), puertos.get(0));
 
         distanciaTotal = total;
