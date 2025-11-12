@@ -30,15 +30,4 @@ public class TurnoConsignee extends Turno {
 		terminal.retirarCarga(containerAbuscar, camion);
 	}
 	
-	/*
-	public void registrarImportacion(Container unaCarga, Turno turno, TerminalPortuaria terminal) {
-		   terminal.depositarCarga(unaCarga);
-		   addTurno(turno);
-		   notificarImportador(turno, terminal);
-	}
-
-	public void notificarImportador(Turno turno, TerminalPortuaria terminal) {
-        turno.getCliente().notificar(turno.getFecha(), terminal);
-    }
-	*/
 }
