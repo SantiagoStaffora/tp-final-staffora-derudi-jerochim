@@ -1,3 +1,5 @@
+package terminalPortuaria;
+
 public class Consignee extends Cliente {
     // IMPORTADOR
     public Consignee(String nombre, Turno turno, Buque buque) {

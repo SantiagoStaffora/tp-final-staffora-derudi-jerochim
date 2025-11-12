@@ -1,3 +1,5 @@
+package terminalPortuaria;
+
 public class Shipper extends Cliente {
     // EXPORTADOR
     public Shipper(String nombre, Turno turno, Buque buque) {
