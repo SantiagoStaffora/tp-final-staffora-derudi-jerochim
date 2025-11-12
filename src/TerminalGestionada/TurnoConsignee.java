@@ -4,11 +4,8 @@ import java.time.*;
 
 public class TurnoConsignee extends Turno {
 
-	Container containerAbuscar;
-
 	public TurnoConsignee(String camionId, String chofer, LocalDateTime fecha, Cliente cliente, Container container) {
-		super(camionId, chofer, fecha, cliente);
-		containerAbuscar = container;
+		super(camionId, chofer, fecha, cliente, container);
 	}
 	
 	public Container getContainer() {
