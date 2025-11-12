@@ -1,5 +1,3 @@
-package terminalPortuaria;
-
 public class Shipper extends Cliente {
     // EXPORTADOR
     public Shipper(String nombre, Turno turno, Buque buque) {
@@ -8,5 +6,9 @@ public class Shipper extends Cliente {
 
     public String buqueConSuCargaEstaSaliendo(Buque buque) {
         return "buque" + buque + "esta saliendo con su carga";
+    }
+
+    public Turno informarExportacion() {
+        return this.turnoCliente;  
     }
 }

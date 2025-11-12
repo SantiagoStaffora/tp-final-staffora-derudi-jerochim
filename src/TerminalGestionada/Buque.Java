@@ -7,13 +7,16 @@ public class Buque {
     private int distanciaDeTerminal;
     private List<Container> contenedores;
     private List<Cliente> clientes;
+    private CircuitoMaritimo circuitoMaritimo;
 
-    public Buque(GPS gps, FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores, List<Cliente> clientes) {
+    public Buque(GPS gps, FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores, List<Cliente> clientes, 
+                CircuitoMaritimo circuitoMaritimo) {
         this.gps = gps;
         this.faseBuque = faseActual;
         this.terminalAArribar = terminalAArribar;
         this.contenedores = contenedores;
         this.clientes = clientes;
+        this.circuitoMaritimo = circuitoMaritimo;
     }
 
     public void actualizarDistanciaDeTerminal (int posicionNueva) {
@@ -60,9 +63,13 @@ public class Buque {
         }
     }
 
-    // public void informar() { // solo en fase outbound en todas las demas no
-    //     faseBuque.informar(this);
-    // }
+    public double facturaPorCircuitoMaritimo() {
+        return faseBuque.facturaPorCircuitoMaritimo(circuitoMaritimo);
+    }
+
+    public void informar() { 
+         faseBuque.informar(clientes);
+    }
 
     //-------------------------------------------------------------------------------------------------------------//
     

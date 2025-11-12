@@ -1,5 +1,3 @@
-package terminalPortuaria;
-
 // por ahora DATA CLASS, hacer observer
 public class GPS {
     private int posicion;
@@ -10,8 +8,16 @@ public class GPS {
         this.buque = buque;
     }
 
-    public int getPosicion {
+    public int getPosicion() {
         return this.posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public void enviarPosicionAlBuque() {
+        buque.actualizarDistanciaDeTerminal(posicion);
     }
 
 

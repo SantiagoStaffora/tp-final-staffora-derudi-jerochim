@@ -1,5 +1,3 @@
-package terminalPortuaria;
-
 import java.time.LocalDateTime;
 
 public class Cliente {

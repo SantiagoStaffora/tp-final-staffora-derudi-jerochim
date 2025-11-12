@@ -54,6 +54,19 @@ public class CircuitoMaritimo {
         return distancia;
     }
 
+    public double costoDeCircuitoTotal() {
+        double costo = 0.0;
+
+        if (puertos.size() < 2) return costo;
+
+        for (int i = 0; i < puertos.size(); i++) {
+            TerminalPortuaria actual = puertos.get(i);
+            TerminalPortuaria siguiente = puertos.get((i + 1) % puertos.size()); 
+            costo += this.distanciaCon(actual, siguiente) * 2; 
+        }
+        return costo;
+    }
+
     // calcula distancia entre una terminal y otra de manera directa (no siguiendo el circuito)
     public double distanciaCon(TerminalPortuaria origen, TerminalPortuaria destino) {
         double difLat = origen.getLatitud() - destino.getLatitud();

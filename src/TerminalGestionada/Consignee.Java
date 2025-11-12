@@ -1,5 +1,3 @@
-package terminalPortuaria;
-
 public class Consignee extends Cliente {
     // IMPORTADOR
     public Consignee(String nombre, Turno turno, Buque buque) {
@@ -8,5 +6,11 @@ public class Consignee extends Cliente {
 
     public String buqueConSuCargaEstaLlegando(Buque buque) {
         return "buque" + buque + "esta llegando con su carga";
+    }
+
+    @Override
+    public double facturaPorCliente() {
+        montoAPagar = turnoCliente.facturaPorServiciosAplicados() + buque.facturaPorCircuitoMaritimo();
+        return montoAPagar;
     }
 }

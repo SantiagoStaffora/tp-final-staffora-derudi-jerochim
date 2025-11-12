@@ -1,5 +1,3 @@
-package terminalPortuaria;
-
 import java.util.List;
 
 public class Outbound implements FaseBuque {
@@ -26,8 +24,17 @@ public class Outbound implements FaseBuque {
           throw new IllegalArgumentException();
      }
 
-     // @Override
-     // public void informar(Buque buque) {
-     //      buque.notifyAll();
-     // }
+     @Override
+     public double facturaPorCircuitoMaritimo(CircuitoMaritimo circuitoMaritimo) {
+             throw new IllegalArgumentException();
+     }
+
+     @Override
+      public void informar(List<Cliente> clientes) {
+           for (Cliente c : clientes) {
+               if (c instanceof Shipper) {
+                  ((Shipper) c).informarExportacion();
+               }
+           }
+      }
 }

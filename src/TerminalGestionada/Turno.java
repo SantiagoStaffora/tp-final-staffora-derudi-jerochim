@@ -13,6 +13,7 @@ public abstract class Turno {
 	String chofer;
 	LocalDateTime fecha;
 	Cliente cliente;
+	Container container;
 
 	public Turno(String camionId, String chofer, LocalDateTime fecha, Cliente cliente) {
 		this.camionId = camionId;
@@ -51,6 +52,10 @@ public abstract class Turno {
 	*/
 	public String getChofer() {
 		return this.chofer;
+	}
+
+	public Container getContainer() {
+		return this.container;
 	}
 
 	public abstract boolean verificarDemora(Camion camion, ListaTurnos lista);

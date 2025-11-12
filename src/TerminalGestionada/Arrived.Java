@@ -1,5 +1,3 @@
-package terminalPortuaria;
-
 import java.util.List;
 
 public class Arrived implements FaseBuque {
@@ -23,6 +21,16 @@ public class Arrived implements FaseBuque {
 
       @Override 
       public void pagarPorContainer(Container containerDeCliente, Cliente unCliente) {
-          throw new IllegalArgumentException();
+             throw new IllegalArgumentException();
+      }
+
+      @Override
+      public double facturaPorCircuitoMaritimo(CircuitoMaritimo circuitoMaritimo) {
+             throw new IllegalArgumentException();
+      }
+
+      @Override
+      public void informar(List<Cliente> clientes) {
+           throw new IllegalArgumentException();
       }
 }

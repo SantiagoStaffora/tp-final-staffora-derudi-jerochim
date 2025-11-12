@@ -1,11 +1,11 @@
-package terminalPortuaria;
-
 import java.util.List;
+
 public interface FaseBuque {
     public void realizarOperacion(TerminalPortuaria terminalAArribar, Buque buque);
     public void actualizarFase(int distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar);
     public void envioFacturaPorServiciosAplicados(List<Cliente> clientes, List<Container> contenedores);
     public void pagarPorContainer(Container containerDeCliente, Cliente unCliente);
-    // public void informar(Buque buque);
+    public double facturaPorCircuitoMaritimo(CircuitoMaritimo circuitoMaritimo);
+    public void informar(List<Cliente> clientes);
     // segun que fase sea puede realizar la operacion o no
 }
