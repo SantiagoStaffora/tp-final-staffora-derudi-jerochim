@@ -1,4 +1,4 @@
-package TerminalPortuaria;
+package terminalPortuaria;
 
 import java.util.ArrayList;
 import java.util.List;

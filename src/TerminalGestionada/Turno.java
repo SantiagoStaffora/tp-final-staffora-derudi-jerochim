@@ -1,34 +1,40 @@
-package containers;
+package terminalPortuaria;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
-public class Turno {
+public abstract class Turno {
 	
-	Camion camion;
+	// Creo que camion no tiene mucho sentido.
+	// Por el enunciado, el cliente solo avisa la ID del camion y su chofer.
+
+	// Camion camion;
 	String camionId;
 	String chofer;
 	LocalDateTime fecha;
 	Cliente cliente;
-	Container container;
 
-	public Turno(String chofer, LocalDateTime fecha, Camion camion, Cliente cliente, Container container) {
-		this.camionId = camion.getIdentificador();
+	public Turno(String camionId, String chofer, LocalDateTime fecha, Cliente cliente) {
+		this.camionId = camionId;
 		this.chofer = chofer;
 		this.fecha = fecha;
-		this.camion = camion;
+		// this.camion = camion;
 		this.cliente = cliente;
-		this.container = container;
 	}
 	
 	long diferencia(LocalDateTime fechaFin) {
 		return(ChronoUnit.HOURS.between(this.fecha, fechaFin));
 	}
 
+	// ¿Por que el TURNO esta agregando la carga al camion?
+	// Creo que esto no es su responsabilidad.
+	/*
 	public void agregarCarga(Container unaCarga) {
-		// aqui depende si el camion puede llevar varios container
-		this.container = unaCarga;
+		
+		this.camion.setCarga(unaCarga);
+		// anteriormente this.container = unaCarga;
 	}
+	*/
 
 	public LocalDateTime getFecha() {
 		return this.fecha;
@@ -38,19 +44,22 @@ public class Turno {
 		return this.cliente;
 	}
 
+	/*
 	public Camion getCamion() {
 		return this.camion;
 	}
-
+	*/
 	public String getChofer() {
 		return this.chofer;
 	}
 
-	public Container getContainer() {
-		return this.container;
-	}
+	public abstract boolean verificarDemora(Camion camion, ListaTurnos lista);
+	public abstract void operacionPara(Camion camion, TerminalPortuaria terminal);
 
 	//------------------------------------------------------------------------------------------//
+	// REVISAR:
+	// Container NO era el container del camion, si no el que venia a buscar.
+	// Container ahora esta en TurnoConsignee, pero la situacion es la misma.
 	public double facturaPorServiciosAplicados() {
 		return container.calcularCostoTotal();
 	}

@@ -1,3 +1,5 @@
+package terminalPortuaria;
+
 import java.util.List;
 
 public class Arrived implements FaseBuque {
@@ -11,7 +13,7 @@ public class Arrived implements FaseBuque {
       @Override
       public void actualizarFase(int distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
               buque.setFaseBuque(new Working());
-              buque.realizarOperacionCorrespondiente(terminalAArribar);
+              buque.realizarOperacionCorrespondiente(terminalAArribar); // No seria mas facil hacer this.realizarOperacion(terminalAAribar); ?
       }
 
       @Override

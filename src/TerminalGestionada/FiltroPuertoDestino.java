@@ -1,4 +1,4 @@
-package TerminalPortuaria;
+package terminalPortuaria;
 
 public class FiltroPuertoDestino implements Filtro {
     private TerminalPortuaria destino;

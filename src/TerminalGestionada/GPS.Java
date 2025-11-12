@@ -1,3 +1,5 @@
+package terminalPortuaria;
+
 // por ahora DATA CLASS, hacer observer
 public class GPS {
     private int posicion;
