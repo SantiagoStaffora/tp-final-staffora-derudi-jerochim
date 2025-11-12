@@ -19,6 +19,11 @@ public class Outbound implements FaseBuque {
           
      }
 
+     @Override 
+     public void pagarPorContainer(Container containerDeCliente, Cliente unCliente) {
+          throw new IllegalArgumentException();
+     }
+
      // @Override
      // public void informar(Buque buque) {
      //      buque.notifyAll();

@@ -22,5 +22,10 @@ public class Departing implements FaseBuque {
                      c.facturaPorCliente();
                  }
              } 
-       }
+      }
+
+      @Override 
+      public void pagarPorContainer(Container containerDeCliente, Cliente unCliente) {
+            unCliente.operacionDePagoPorContainer(containerDeCliente.calcularCostoTotal());
+      }
 }

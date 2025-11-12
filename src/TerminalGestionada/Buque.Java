@@ -52,7 +52,15 @@ public class Buque {
         faseBuque.envioFacturaPorServiciosAplicados(clientes, contenedores);
     }
 
-    // public void informar() {
+    public void pagarPorContainer(Container containerDeCliente, Cliente unCliente) {
+        if (!contenedores.contains(containerDeCliente)) {
+           throw new IllegalArgumentException();
+        } else {
+           faseBuque.pagarPorContainer(containerDeCliente, unCliente);
+        }
+    }
+
+    // public void informar() { // solo en fase outbound en todas las demas no
     //     faseBuque.informar(this);
     // }
 

@@ -18,4 +18,9 @@ public class Arrived implements FaseBuque {
       public void envioFacturaPorServiciosAplicados(List<Cliente> clientes, List<Container> contenedores) {
               throw new IllegalArgumentException ("en esta fase no se pueden enviar facturas.");
       }
+
+      @Override 
+      public void pagarPorContainer(Container containerDeCliente, Cliente unCliente) {
+          throw new IllegalArgumentException();
+      }
 }

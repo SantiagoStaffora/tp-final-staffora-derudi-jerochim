@@ -5,6 +5,7 @@ public class Cliente {
     String nombre;
     Buque buque;
     double montoAPagar;
+    double montoDisponible;
 
     public Cliente(String nombre, Turno turno, Buque buque) {
         this.nombre = nombre;
@@ -25,9 +26,25 @@ public class Cliente {
         return this.turnoCliente;
     }
 
+    public double getMontoDisponible() {
+        return this.montoDisponible;
+    }
+
     public double facturaPorCliente() {
         montoAPagar = turnoCliente.facturaPorServiciosAplicados();
         return montoAPagar;
+    }
+
+    public void pagarPorContainerOperado() {
+        if (montoAPagar > montoDisponible) {
+            throw new IllegalArgumentException();
+        } else {
+            buque.pagarPorContainer(turnoCliente.getContainer(), this);
+        }
+    }
+
+    public void operacionDePagoPorContainer(double montoAPagar) {
+        montoDisponible = montoDisponible - montoAPagar;
     }
 }
 
