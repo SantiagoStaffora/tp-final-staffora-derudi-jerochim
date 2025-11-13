@@ -1,4 +1,4 @@
-package terminalPortuaria;
+package TerminalPortuaria;
 
 import java.time.LocalDate;
 
@@ -11,6 +11,6 @@ public class FiltroFechaSalida implements Filtro {
 
     @Override
     public boolean aplicaA(CircuitoMaritimo circuito) {
-        return circuito.getFechaHoraInicio().isAfter(fechaDesde);
+        return circuito.getFechaInicio().isEqual(fechaDesde);
     }
 }
