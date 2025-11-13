@@ -13,6 +13,10 @@ public class Cliente {
         this.buque = buque;
     }
 
+    public void registrarOrden(TerminalPortuaria unaTerminal) {
+        unaTerminal.registrarTurno(turnoCliente);
+    }
+
     public void notificar(LocalDateTime fecha, TerminalPortuaria terminal) {
         System.out.println("Cliente " + nombre + 
                            ", su carga estará disponible el día: " + fecha);

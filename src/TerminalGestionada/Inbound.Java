@@ -7,7 +7,7 @@ public class Inbound implements FaseBuque {
       }
 
       @Override
-      public void actualizarFase(int distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
+      public void actualizarFase(double distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
              if (distanciaDeTerminal == 0) {
                  buque.setFaseBuque(new Arrived());
                  buque.realizarOperacionCorrespondiente(terminalAArribar);

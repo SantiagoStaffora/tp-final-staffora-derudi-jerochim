@@ -1,17 +1,15 @@
 import java.util.List;
 
 public class Buque {
-    private GPS gps;
     private FaseBuque faseBuque;
     private TerminalPortuaria terminalAArribar;
-    private int distanciaDeTerminal;
+    private double distanciaDeTerminal;
     private List<Container> contenedores;
     private List<Cliente> clientes;
     private CircuitoMaritimo circuitoMaritimo;
 
-    public Buque(GPS gps, FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores, List<Cliente> clientes, 
+    public Buque(FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores, List<Cliente> clientes, 
                 CircuitoMaritimo circuitoMaritimo) {
-        this.gps = gps;
         this.faseBuque = faseActual;
         this.terminalAArribar = terminalAArribar;
         this.contenedores = contenedores;
@@ -19,10 +17,12 @@ public class Buque {
         this.circuitoMaritimo = circuitoMaritimo;
     }
 
-    public void actualizarDistanciaDeTerminal (int posicionNueva) {
+    public void actualizarDistanciaDeTerminal (double latitud, double longitud) {
         // cada vez que actualiza la distancia al ser notificado por el GPS debemos pensar que el buque esta...
         // ... en una fase, en base a la actualizacion de distancia debemos ver si cambiar la fase de buque o no. 
-        distanciaDeTerminal = terminalAArribar.getPosicion() - posicionNueva;
+        double difLat = terminalAArribar.getLatitud() - latitud;
+        double difLon = terminalAArribar.getLongitud() - longitud;
+        distanciaDeTerminal = Math.sqrt(difLat * difLat + difLon * difLon);
         faseBuque.actualizarFase(distanciaDeTerminal, this, terminalAArribar);
     }
 
@@ -34,7 +34,7 @@ public class Buque {
         return this.faseBuque;
     }
 
-    public void actualizarFase(int distancia, TerminalPortuaria terminal) {
+    public void actualizarFase(double distancia, TerminalPortuaria terminal) {
         faseBuque.actualizarFase(distancia, this, terminal);
     }
 

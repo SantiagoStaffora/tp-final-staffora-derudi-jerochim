@@ -8,7 +8,7 @@ public class Working implements FaseBuque {
      
      // lo mismo que arrived, la terminal va a invocar actualizarFase cuando terminen los trabajos de descarga y carga
      @Override
-     public void actualizarFase(int distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
+     public void actualizarFase(double distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
             buque.setFaseBuque(new Departing());
             buque.realizarOperacionCorrespondiente(terminalAArribar); // No seria mas facil hacer this.realizarOperacion(terminalAAribar); ?
      }

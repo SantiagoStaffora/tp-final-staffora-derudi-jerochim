@@ -1,23 +1,23 @@
 // por ahora DATA CLASS, hacer observer
 public class GPS {
-    private int posicion;
     private Buque buque;
+    private double latitud;
+    private double longitud;
 
-    public GPS(int posicion, Buque buque) {
-        this.posicion = posicion;
+    public GPS(Buque buque) {
         this.buque = buque;
     }
 
-    public int getPosicion() {
-        return this.posicion;
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
     }
 
-    public void setPosicion(int posicion) {
-        this.posicion = posicion;
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 
     public void enviarPosicionAlBuque() {
-        buque.actualizarDistanciaDeTerminal(posicion);
+        buque.actualizarDistanciaDeTerminal(latitud, longitud);
     }
 
 

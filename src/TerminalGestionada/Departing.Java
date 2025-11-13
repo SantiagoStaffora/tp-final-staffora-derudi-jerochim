@@ -7,7 +7,7 @@ public class Departing implements FaseBuque {
       }
 
       @Override
-      public void actualizarFase(int distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
+      public void actualizarFase(double distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
              if (distanciaDeTerminal > 1) {
                  terminalAArribar.buqueSaliendoDeTerminal(buque);
                  buque.setFaseBuque(new Outbound());

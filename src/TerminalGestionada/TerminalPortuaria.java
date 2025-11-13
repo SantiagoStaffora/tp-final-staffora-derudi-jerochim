@@ -12,14 +12,19 @@ public class TerminalPortuaria {
 	Camion camionDeCliente; // Aca pasa lo mismo. Los camiones y choferes de todos los clientes estan en la listaTurnos.
 	String choferDeCliente; // Tampoco tiene mucho sentido guardar el camion y chofer de 1 solo cliente.
 	Container cargaDeCliente; // Lo mismo que arriba pero para las cargas; ya existe ListaCargas.
-	int posicion;
+	double latitud;
+	double longitud;
 	
 	public TerminalPortuaria() {
 		
 	}
 
-	public int getPosicion() {
-		return this.posicion;
+	public double getLatitud() {
+		return this.latitud;
+	}
+
+	public double getLongitud() {
+		return this.longitud;
 	}
 
 	void registrarTurno(Turno turno) {

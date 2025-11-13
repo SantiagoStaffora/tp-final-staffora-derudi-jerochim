@@ -7,7 +7,7 @@ public class Outbound implements FaseBuque {
      }
      
      @Override
-     public void actualizarFase(int distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
+     public void actualizarFase(double distanciaDeTerminal, Buque buque, TerminalPortuaria terminalAArribar) {
           if (distanciaDeTerminal < 50) {
               buque.setFaseBuque(new Inbound());
               buque.realizarOperacionCorrespondiente(terminalAArribar);
