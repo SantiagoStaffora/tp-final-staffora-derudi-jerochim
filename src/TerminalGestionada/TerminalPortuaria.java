@@ -14,9 +14,14 @@ public class TerminalPortuaria {
 	Container cargaDeCliente; // Lo mismo que arriba pero para las cargas; ya existe ListaCargas.
 	double latitud;
 	double longitud;
+
+
 	
-	public TerminalPortuaria() {
-		
+	public TerminalPortuaria(ListaTurnos turnos, List<Container> cargas, double latitud, double longitud) {
+		listaTurnos = turnos;
+		listaCargas = cargas;
+		this.latitud = latitud;
+		this.longitud = longitud;
 	}
 
 	public double getLatitud() {

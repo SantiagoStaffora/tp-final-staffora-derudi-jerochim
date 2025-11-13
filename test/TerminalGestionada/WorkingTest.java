@@ -2,16 +2,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.*;
 
-public class ArrivedTest {
+public class WorkingTest {
 
 	private static class TerminalPrueba extends TerminalPortuaria {
-		public boolean buqueALaEsperaLlamado = false;
-
-		public void buqueALaEsperaDeOrden(Buque b) {
-			buqueALaEsperaLlamado = true;
-		}
+		public boolean trabajosLlamado = false;
 
 		public void trabajosDeDescargaYCarga(Buque b) {
+			trabajosLlamado = true;
+		}
+
+		public void buqueALaEsperaDeOrden(Buque b) {
 		}
 
 		public void buqueSaliendoDeTerminal(Buque b) {
@@ -43,55 +43,59 @@ public class ArrivedTest {
 	}
 
 	@Test
-	public void arrivedRealizarOperacionLlamaTerminal() {
-		Arrived fase = new Arrived();
+	public void workingRealizarOperacionLlamaTrabajos() {
+		Working fase = new Working();
 		TerminalPrueba terminal = new TerminalPrueba();
 		BuquePrueba buque = new BuquePrueba();
 		fase.realizarOperacion(terminal, buque);
-		assertTrue(terminal.buqueALaEsperaLlamado);
+		assertTrue(terminal.trabajosLlamado);
 	}
 
 	@Test
-	public void arrivedActualizarFaseCambiaAWorking() {
-		Arrived fase = new Arrived();
+	public void workingActualizarFaseCambiaADeparting() {
+		Working fase = new Working();
 		TerminalPrueba terminal = new TerminalPrueba();
 		BuquePrueba buque = new BuquePrueba();
-		fase.actualizarFase(0.0, buque, terminal);
-		assertTrue(buque.fasePuesta instanceof Working);
+		fase.actualizarFase(50.0, buque, terminal);
+		assertTrue(buque.fasePuesta instanceof Departing);
 	}
 
 	@Test
-	public void arrivedEnvioFacturaLanzaExcepcion() {
-		Arrived fase = new Arrived();
+	public void workingEnvioFacturaLanzaExcepcion() {
+		Working fase = new Working();
 		try {
 			fase.envioFacturaPorServiciosAplicados(new ArrayList<>(), new ArrayList<>());
+			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
 	@Test
-	public void arrivedPagarLanzaExcepcion() {
-		Arrived fase = new Arrived();
+	public void workingPagarLanzaExcepcion() {
+		Working fase = new Working();
 		try {
 			fase.pagarPorContainer(null, null);
+			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
 	@Test
-	public void arrivedFacturaLanzaExcepcion() {
-		Arrived fase = new Arrived();
+	public void workingFacturaLanzaExcepcion() {
+		Working fase = new Working();
 		try {
 			fase.facturaPorCircuitoMaritimo(null);
+			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
 	@Test
-	public void arrivedInformarLanzaExcepcion() {
-		Arrived fase = new Arrived();
+	public void workingInformarLanzaExcepcion() {
+		Working fase = new Working();
 		try {
 			fase.informar(new ArrayList<>());
+			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}

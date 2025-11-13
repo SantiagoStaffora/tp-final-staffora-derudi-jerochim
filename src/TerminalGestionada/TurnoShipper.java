@@ -4,11 +4,13 @@ import java.time.*;
 
 public class TurnoShipper extends Turno {
 
-	public TurnoShipper(String camionId, String chofer, LocalDateTime fecha, Cliente cliente) {
-		super(camionId, chofer, fecha, cliente);
+	public TurnoShipper(String camionId, String chofer, LocalDateTime fecha, Cliente cliente, Container container) {
+		super(camionId, chofer, fecha, cliente, container);
 	}
 
-
+	public Container getContainer() {
+		return this.container;
+	}
 	public void operacionPara(Camion camion, TerminalPortuaria terminal) {
 		terminal.registrarCarga(camion.getContainer(), camion);
 	}
