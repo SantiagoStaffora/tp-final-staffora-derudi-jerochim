@@ -1,10 +1,12 @@
 package terminalPortuaria;
 
+import java.time.LocalDate;
 import java.util.*;
 
 
 public class TerminalPortuaria {
 
+<<<<<<< HEAD
 	ListaTurnos listaTurnos;
 	List<Container> listaCargas;
 	List<Consignee> consignees; // Creo que las listas de consignees y shippers estan al pedo.
@@ -22,15 +24,86 @@ public class TerminalPortuaria {
 		listaCargas = cargas;
 		this.latitud = latitud;
 		this.longitud = longitud;
+=======
+	private ListaTurnos listaTurnos;
+	private List<Container> listaCargas;
+	private double latitud;
+	private double longitud;
+	private String nombre;
+	private List<LineaNaviera> lineas;
+	private MejorCircuito mejorCircuito = new MenorTiempo();
+	
+	public TerminalPortuaria(ListaTurnos turnos, List<Container> cargas, double latitud, double longitud) {
+		this.listaTurnos = turnos;
+		this.listaCargas = cargas;
+		this.latitud = latitud;
+		this.latitud = longitud;
+	}
+	
+	protected TerminalPortuaria(String nombre, double latitud, double longitud) {
+		this.nombre = nombre;
+		this.latitud = latitud;
+		this.latitud = longitud;
+>>>>>>> 82905d7edc0d81782c999a056fbff14ce380c34e
 	}
 
 	public double getLatitud() {
 		return this.latitud;
+<<<<<<< HEAD
 	}
 
 	public double getLongitud() {
 		return this.longitud;
+=======
+>>>>>>> 82905d7edc0d81782c999a056fbff14ce380c34e
 	}
+	
+	public void setMejorCircuito(MejorCircuito otro) {
+		this.mejorCircuito = otro;
+	}
+	
+	public MejorCircuito getMejorCircuito() {
+		return this.mejorCircuito;
+	}
+	
+	public double getLongitud() {
+		return this.longitud;
+	}
+	
+	public void registrarLineaNaviera(LineaNaviera linea) {
+    	lineas.add(linea);
+    }
+	
+	public List<LineaNaviera> getLineasNavieras() {
+    	return lineas;
+    }
+	
+	public double tiempoDeRecorrido(LineaNaviera linea, TerminalPortuaria terminal) {
+		return linea.tiempoDeRecorridoDesde_Hasta_(this, terminal);
+	}
+	
+	public LocalDate proximaFechaDeSalida(LineaNaviera linea, TerminalPortuaria terminal, LocalDate desdeFecha) {
+		return linea.proximaFechaDeSalidaDesde_Hasta_DespuesDe(this, terminal, desdeFecha);
+	}
+
+	protected List<CircuitoMaritimo> todosLosCircuitos() {
+		List<CircuitoMaritimo> resultados = new ArrayList<>();
+		for (LineaNaviera linea : lineas) {
+			resultados.addAll(linea.circuitosQueIncluyenTerminal(this));
+		}
+		return resultados;
+	}
+	
+	public CircuitoMaritimo mejorCircuito(TerminalPortuaria destino) {
+		return mejorCircuito.obtenerMejorCircuito(this.getLineasNavieras(), this, destino);
+	}
+	
+	public List<CircuitoMaritimo> buscarPor(Filtro filtro){
+		MotorDeBusqueda motor = new MotorDeBusqueda(filtro);
+		return motor.buscar(this.todosLosCircuitos());
+	}
+	
+	//----------------------------------------------------------------------------
 
 	void registrarTurno(Turno turno) {
 		listaTurnos.addTurno(turno);
@@ -52,8 +125,8 @@ public class TerminalPortuaria {
 			if (listaTurnos.verificarDemora(camion)) {
 				return;
 			}
-			listaTurnos.eliminarTurnoDe(camion);
 			listaTurnos.operacionPara(camion, this);
+			listaTurnos.eliminarTurnoDe(camion);
 		}
 	}
 

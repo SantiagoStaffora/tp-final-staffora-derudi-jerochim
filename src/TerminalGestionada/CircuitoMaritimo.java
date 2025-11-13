@@ -10,12 +10,12 @@ public class CircuitoMaritimo {
     private ArrayList<TerminalPortuaria> puertos = new ArrayList<>();
     private double distanciaTotal = 0;        // en millas náuticas
     private double tiempoDeRecorridoPorMilla; // horas promedio por tramo entre puertos
-    private LocalDate fechaHoraInicio;
+    private LocalDate fechaInicio;
 
     public CircuitoMaritimo(String nombre, double tiempoDeRecorridoPorMilla, LocalDate fechaHoraInicio) {
         this.nombre = nombre;
         this.tiempoDeRecorridoPorMilla = tiempoDeRecorridoPorMilla;
-        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaInicio = fechaHoraInicio;
     }
     
     public boolean estanEnElRecorrido(TerminalPortuaria origen, TerminalPortuaria destino) {
@@ -53,22 +53,29 @@ public class CircuitoMaritimo {
 
         return distancia;
     }
-
-    public double costoDeCircuitoTotal() {
-        double costo = 0.0;
-
-        if (puertos.size() < 2) return costo;
-
-        for (int i = 0; i < puertos.size(); i++) {
-            TerminalPortuaria actual = puertos.get(i);
-            TerminalPortuaria siguiente = puertos.get((i + 1) % puertos.size()); 
-            costo += this.distanciaCon(actual, siguiente) * 2; 
+    
+    public LocalDate fechaLlegadaA(TerminalPortuaria destino) {
+        if (!puertos.contains(destino) || puertos.size() < 2) {
+            return null;
         }
-        return costo;
+
+        int indexDestino = puertos.indexOf(destino);
+        double distanciaAcumulada = 0;
+
+        for (int i = 0; i < indexDestino; i++) {
+            TerminalPortuaria origen = puertos.get(i);
+            TerminalPortuaria siguiente = puertos.get((i + 1) % puertos.size());
+            distanciaAcumulada += distanciaCon(origen, siguiente);
+        }
+
+        double horas = distanciaAcumulada / tiempoDeRecorridoPorMilla;
+        long dias = Math.round(horas / 24.0);
+
+        return fechaInicio.plusDays(dias);
     }
 
     // calcula distancia entre una terminal y otra de manera directa (no siguiendo el circuito)
-    public double distanciaCon(TerminalPortuaria origen, TerminalPortuaria destino) {
+    protected double distanciaCon(TerminalPortuaria origen, TerminalPortuaria destino) {
         double difLat = origen.getLatitud() - destino.getLatitud();
         double difLon = origen.getLongitud() - destino.getLongitud();
         return Math.sqrt(difLat * difLat + difLon * difLon);
@@ -104,7 +111,7 @@ public class CircuitoMaritimo {
         }
         
         
-        // Cierre del circuito (último → primero)
+        // Cierre del circuito (ultimo → primero)
         total += this.distanciaCon(puertos.get(puertos.size() - 1), puertos.get(0));
 
         distanciaTotal = total;
@@ -142,12 +149,25 @@ public class CircuitoMaritimo {
         return nombre;
     }
 
-    public LocalDate getFechaHoraInicio() {
-        return fechaHoraInicio;
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+    
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
     public double getVelocidadPromedio() {
         return tiempoDeRecorridoPorMilla;
+    }
+
+	public LocalDate proximaFechaDeSalidaDesde_Hasta_DespuesDe(TerminalPortuaria origen, TerminalPortuaria destino, LocalDate desdeFecha) {
+        LocalDate fechaSalidaOrigen = this.fechaLlegadaA(origen);
+        if (fechaSalidaOrigen.isBefore(desdeFecha) || fechaSalidaOrigen.isEqual(desdeFecha)) {
+            return this.fechaLlegadaA(destino);
+        } else {
+            return null;
+        }
     }
 
     
