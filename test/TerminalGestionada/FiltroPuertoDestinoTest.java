@@ -1,4 +1,4 @@
-package TerminalPortuaria;
+package terminalPortuaria;
 
 import static org.junit.jupiter.api.Assertions.*;
 

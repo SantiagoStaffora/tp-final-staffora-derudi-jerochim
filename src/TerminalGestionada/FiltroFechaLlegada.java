@@ -1,4 +1,4 @@
-package TerminalPortuaria;
+package terminalPortuaria;
 
 import java.time.LocalDate;
 

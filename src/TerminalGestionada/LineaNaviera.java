@@ -1,5 +1,6 @@
 package terminalPortuaria;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class LineaNaviera {
         this.precioPorMilla = precioPorMilla;
     }
 
-    // si es que la linea naviera puede tener circuitos que no incluyan a la terminal y nos sirva contemplar esos casos
+    // si es que la linea naviera puede tener circuitos que no incluyan a la terminal (preguntar)
     public List<CircuitoMaritimo> circuitosQueIncluyenTerminales(TerminalPortuaria origen, TerminalPortuaria destino) {
         List<CircuitoMaritimo> resultado = 
             circuitos.stream()
@@ -54,26 +55,14 @@ public class LineaNaviera {
         throw new IllegalArgumentException("No hay ningún circuito que conecte los puertos dados.");
     }
 
-    // Devuelve la cantidad total de contenedores operados por todos los buques de la naviera.
-    public int totalDeContainersOperados() {
-        return buques.stream()
-                     .mapToInt(Buque::cantidadDeContainers)
-                     .sum();
+    public LocalDate proximaFechaDeSalidaDesde_Hasta_DespuesDe(TerminalPortuaria origen, TerminalPortuaria destino, LocalDate desdeFecha) {
+        for (CircuitoMaritimo circuito : circuitos) {
+            if (circuito.estanEnElRecorrido(origen, destino)) {
+                return circuito.proximaFechaDeSalidaDesde_Hasta_DespuesDe(origen, destino, desdeFecha);
+            }
+        }
+        throw new IllegalArgumentException("No hay ningún circuito que conecte los puertos dados.");
     }
-
-
-    // VERIFICAR SI ES NECESARIO ESTO
-    // Asigna un buque a un circuito marítimo dentro de la línea naviera.
-    /* public void asignarBuqueACircuito(Buque buque, CircuitoMaritimo circuito) {
-        if (!buques.contains(buque)) {
-            throw new IllegalArgumentException("El buque no pertenece a esta línea naviera.");
-        }
-        if (!circuitos.contains(circuito)) {
-            throw new IllegalArgumentException("El circuito no pertenece a esta línea naviera.");
-        }
-        buque.asignarACircuito(circuito); // este
-        circuito.asignarBuque(buque);     // o este
-    } */
 
     // Busca y devuelve un circuito marítimo por su nombre.
     public CircuitoMaritimo buscarCircuitoMaritimo(String nombreCircuito) throws IllegalArgumentException {
@@ -123,5 +112,18 @@ public class LineaNaviera {
     public double getPrecioPorMilla() {
         return precioPorMilla;
     }
+    
+    // PREGUNTAR SI ES NECESARIO ESTO
+    // Asigna un buque a un circuito marítimo dentro de la línea naviera.
+    /* public void asignarBuqueACircuito(Buque buque, CircuitoMaritimo circuito) {
+        if (!buques.contains(buque)) {
+            throw new IllegalArgumentException("El buque no pertenece a esta línea naviera.");
+        }
+        if (!circuitos.contains(circuito)) {
+            throw new IllegalArgumentException("El circuito no pertenece a esta línea naviera.");
+        }
+        buque.asignarACircuito(circuito); // este
+        circuito.asignarBuque(buque);     // o este
+    } */
 
 }

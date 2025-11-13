@@ -1,23 +1,82 @@
 package terminalPortuaria;
 
+import java.time.LocalDate;
 import java.util.*;
 
 
 public class TerminalPortuaria {
 
-	ListaTurnos listaTurnos;
-	List<Container> listaCargas;
-	int posicion;
+	private ListaTurnos listaTurnos;
+	private List<Container> listaCargas;
+	private double latitud;
+	private double longitud;
+	private String nombre;
+	private List<LineaNaviera> lineas;
+	private MejorCircuito mejorCircuito = new MenorTiempo();
 	
-	public TerminalPortuaria(ListaTurnos turnos, List<Container> cargas, int posicion) {
-		listaTurnos = turnos;
-		listaCargas = cargas;
-		this.posicion = posicion
+	public TerminalPortuaria(ListaTurnos turnos, List<Container> cargas, double latitud, double longitud) {
+		this.listaTurnos = turnos;
+		this.listaCargas = cargas;
+		this.latitud = latitud;
+		this.latitud = longitud;
+	}
+	
+	protected TerminalPortuaria(String nombre, double latitud, double longitud) {
+		this.nombre = nombre;
+		this.latitud = latitud;
+		this.latitud = longitud;
 	}
 
-	public int getPosicion() {
-		return this.posicion;
+	public double getLatitud() {
+		return this.latitud;
 	}
+	
+	public void setMejorCircuito(MejorCircuito otro) {
+		this.mejorCircuito = otro;
+	}
+	
+	public MejorCircuito getMejorCircuito() {
+		return this.mejorCircuito;
+	}
+	
+	public double getLongitud() {
+		return this.longitud;
+	}
+	
+	public void registrarLineaNaviera(LineaNaviera linea) {
+    	lineas.add(linea);
+    }
+	
+	public List<LineaNaviera> getLineasNavieras() {
+    	return lineas;
+    }
+	
+	public double tiempoDeRecorrido(LineaNaviera linea, TerminalPortuaria terminal) {
+		return linea.tiempoDeRecorridoDesde_Hasta_(this, terminal);
+	}
+	
+	public LocalDate proximaFechaDeSalida(LineaNaviera linea, TerminalPortuaria terminal, LocalDate desdeFecha) {
+		return linea.proximaFechaDeSalidaDesde_Hasta_DespuesDe(this, terminal, desdeFecha);
+	}
+
+	protected List<CircuitoMaritimo> todosLosCircuitos() {
+		List<CircuitoMaritimo> resultados = new ArrayList<>();
+		for (LineaNaviera linea : lineas) {
+			resultados.addAll(linea.circuitosQueIncluyenTerminal(this));
+		}
+		return resultados;
+	}
+	
+	public CircuitoMaritimo mejorCircuito(TerminalPortuaria destino) {
+		return mejorCircuito.obtenerMejorCircuito(this.getLineasNavieras(), this, destino);
+	}
+	
+	public List<CircuitoMaritimo> buscarPor(Filtro filtro){
+		MotorDeBusqueda motor = new MotorDeBusqueda(filtro);
+		return motor.buscar(this.todosLosCircuitos());
+	}
+	
+	//----------------------------------------------------------------------------
 
 	void registrarTurno(Turno turno) {
 		listaTurnos.addTurno(turno);

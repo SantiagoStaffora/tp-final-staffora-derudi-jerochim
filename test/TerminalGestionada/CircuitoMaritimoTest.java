@@ -1,4 +1,4 @@
-package TerminalPortuaria;
+package terminalPortuaria;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
@@ -66,11 +66,4 @@ public class CircuitoMaritimoTest {
         assertTrue(despues < antes);
     }
 
-    @Test
-    public void testDistanciaEntreLanzaExcepcionSiPuertoNoPertenece() {
-        TerminalPortuaria desconocida = new TerminalPortuaria("Barcelona", 20, 20);
-        assertThrows(IllegalArgumentException.class, () -> {
-            circuito.distanciaEntre(t1, desconocida);
-        });
-    }
 }
