@@ -39,8 +39,8 @@ public class TerminalPortuaria {
 			if (listaTurnos.verificarDemora(camion)) {
 				return;
 			}
-			listaTurnos.eliminarTurnoDe(camion);
 			listaTurnos.operacionPara(camion, this);
+			listaTurnos.eliminarTurnoDe(camion);
 		}
 	}
 
