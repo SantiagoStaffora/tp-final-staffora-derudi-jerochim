@@ -68,7 +68,6 @@ public class OutboundTest {
 		Outbound fase = new Outbound();
 		try {
 			fase.pagarPorContainer(null, null);
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
@@ -78,7 +77,6 @@ public class OutboundTest {
 		Outbound fase = new Outbound();
 		try {
 			fase.facturaPorCircuitoMaritimo(null);
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}

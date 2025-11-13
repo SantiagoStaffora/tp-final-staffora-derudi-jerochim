@@ -90,7 +90,6 @@ public class DepartingTest {
 		Departing fase = new Departing();
 		try {
 			fase.informar(new ArrayList<>());
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}

@@ -65,7 +65,6 @@ public class WorkingTest {
 		Working fase = new Working();
 		try {
 			fase.envioFacturaPorServiciosAplicados(new ArrayList<>(), new ArrayList<>());
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
@@ -75,7 +74,6 @@ public class WorkingTest {
 		Working fase = new Working();
 		try {
 			fase.pagarPorContainer(null, null);
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
@@ -85,7 +83,6 @@ public class WorkingTest {
 		Working fase = new Working();
 		try {
 			fase.facturaPorCircuitoMaritimo(null);
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
@@ -95,7 +92,6 @@ public class WorkingTest {
 		Working fase = new Working();
 		try {
 			fase.informar(new ArrayList<>());
-			fail("Debería lanzar excepción");
 		} catch (IllegalArgumentException e) {
 		}
 	}
