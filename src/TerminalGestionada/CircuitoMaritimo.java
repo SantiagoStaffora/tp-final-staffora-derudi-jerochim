@@ -124,6 +124,15 @@ public class CircuitoMaritimo {
         if (index == -1 || puertos.isEmpty()) return null;
         return puertos.get((index + 1) % puertos.size()); // Si estás en el último puerto, el siguiente vuelve automáticamente al primero.
     }
+    
+	public LocalDate proximaFechaDeSalidaDesde_Hasta_DespuesDe(TerminalPortuaria origen, TerminalPortuaria destino, LocalDate desdeFecha) {
+        LocalDate fechaSalidaOrigen = this.fechaLlegadaA(origen);
+        if (fechaSalidaOrigen.isBefore(desdeFecha) || fechaSalidaOrigen.isEqual(desdeFecha)) {
+            return this.fechaLlegadaA(destino);
+        } else {
+            return null;
+        }
+    }
 
     // registros
     public void agregarPuerto(TerminalPortuaria puerto) {
@@ -161,14 +170,16 @@ public class CircuitoMaritimo {
         return tiempoDeRecorridoPorMilla;
     }
 
-	public LocalDate proximaFechaDeSalidaDesde_Hasta_DespuesDe(TerminalPortuaria origen, TerminalPortuaria destino, LocalDate desdeFecha) {
-        LocalDate fechaSalidaOrigen = this.fechaLlegadaA(origen);
-        if (fechaSalidaOrigen.isBefore(desdeFecha) || fechaSalidaOrigen.isEqual(desdeFecha)) {
-            return this.fechaLlegadaA(destino);
-        } else {
-            return null;
-        }
-    }
+	
+	public double costoDeCircuitoTotal() {
+	    double costo = 0.0;
+	    for (int i = 0; i < puertos.size(); i++) {
+	        TerminalPortuaria origen = puertos.get(i);
+	        TerminalPortuaria destino = puertos.get((i+1) % puertos.size());
+	        costo += this.distanciaCon(origen, destino);
+	    }
+	    return costo;
+	}
 
     
 }
