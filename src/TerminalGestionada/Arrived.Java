@@ -25,7 +25,8 @@ public class Arrived implements FaseBuque {
       }
 
       @Override
-      public double facturaPorCircuitoMaritimo(CircuitoMaritimo circuitoMaritimo) {
+      public double facturaPorTramosRecorridos(TerminalPortuaria terminalDeOrigen, TerminalPortuaria terminalAArribar, 
+                                               LineaNaviera lineaNaviera) {
              throw new IllegalArgumentException();
       }
 

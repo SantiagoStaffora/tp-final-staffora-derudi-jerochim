@@ -3,18 +3,17 @@ import java.util.List;
 public class Buque {
     private FaseBuque faseBuque;
     private TerminalPortuaria terminalAArribar;
+    private TerminalPortuaria terminalDeOrigen;
     private double distanciaDeTerminal;
     private List<Container> contenedores;
     private List<Cliente> clientes;
-    private CircuitoMaritimo circuitoMaritimo;
+    private LineaNaviera lineaNaviera;
 
-    public Buque(FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores, List<Cliente> clientes, 
-                CircuitoMaritimo circuitoMaritimo) {
+    public Buque(FaseBuque faseActual, TerminalPortuaria terminalAArribar, List<Container> contenedores, List<Cliente> clientes) {
         this.faseBuque = faseActual;
         this.terminalAArribar = terminalAArribar;
         this.contenedores = contenedores;
         this.clientes = clientes;
-        this.circuitoMaritimo = circuitoMaritimo;
     }
 
     public void actualizarDistanciaDeTerminal (double latitud, double longitud) {
@@ -63,8 +62,8 @@ public class Buque {
         }
     }
 
-    public double facturaPorCircuitoMaritimo() {
-        return faseBuque.facturaPorCircuitoMaritimo(circuitoMaritimo);
+    public double facturaPorTramosRecorridos() {
+        return faseBuque.facturaPorTramosRecorridos(terminalDeOrigen, terminalAArribar, lineaNaviera);
     }
 
     public void informar() { 

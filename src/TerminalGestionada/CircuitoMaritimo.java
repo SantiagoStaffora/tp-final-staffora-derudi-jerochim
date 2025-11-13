@@ -53,6 +53,18 @@ public class CircuitoMaritimo {
 
         return distancia;
     }
+
+    public double costoDeCircuitoTotal() {
+        double costo = 0.0;
+        for (int i = 0; i < puertos.size(); i++) {
+            TerminalPortuaria origen = puertos.get(i);
+            TerminalPortuaria destino = puertos.get((i + 1) % puertos.size());
+            costo += this.distanciaCon(origen, destino);
+        }
+        return costo;
+    }
+
+
     
     public LocalDate fechaLlegadaA(TerminalPortuaria destino) {
         if (!puertos.contains(destino) || puertos.size() < 2) {

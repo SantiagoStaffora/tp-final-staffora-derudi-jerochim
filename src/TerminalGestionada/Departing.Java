@@ -25,8 +25,9 @@ public class Departing implements FaseBuque {
       }
 
       @Override
-      public double facturaPorCircuitoMaritimo(CircuitoMaritimo circuitoMaritimo) {
-             return circuitoMaritimo.costoDeCircuitoTotal();
+      public double facturaPorTramosRecorridos(TerminalPortuaria terminalDeOrigen, TerminalPortuaria terminalAArribar, 
+                                               LineaNaviera lineaNaviera) {
+             return lineaNaviera.precioDelViajeEntre(terminalDeOrigen, terminalAArribar);
       }
 
       @Override 
