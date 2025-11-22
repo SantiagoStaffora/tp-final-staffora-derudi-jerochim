@@ -206,7 +206,7 @@ public class LineaNaviera {
         if (viajes == null) return new ArrayList<>();
         List<Viaje> resultado = 
             viajes.stream()
-                     .filter(viaje -> viaje.getCircuito() != null && viaje.getCircuito().estaEnElRecorrido(origen))
+                     .filter(viaje -> viaje.getCircuito().estaEnElRecorrido(origen))
                      .toList();
         return resultado;
     }

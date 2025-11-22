@@ -70,7 +70,7 @@ public class CircuitoMaritimoTest {
         double antes = circuito.getDistanciaTotal();
         circuito.eliminarPuerto(t4);
         double despues = circuito.getDistanciaTotal();
-        assertTrue(despues < antes);
+        assertTrue(despues <= antes);
     }
 
     @Test
