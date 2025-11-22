@@ -1,0 +1,15 @@
+package terminalPortuaria;
+
+public class FiltroPuertoDestino implements Filtro {
+    private TerminalPortuaria destino;
+
+    public FiltroPuertoDestino(TerminalPortuaria destino) {
+        this.destino = destino;
+    }
+
+    @Override
+    public boolean aplicaA(Viaje viaje) {
+        return viaje.getDestino() == destino;
+    }
+
+}
