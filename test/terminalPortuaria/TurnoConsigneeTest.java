@@ -40,4 +40,6 @@ class TurnoConsigneeTest {
 
         verify(terminal).retirarCarga(cont, camion);
     }
+    
+    
 }

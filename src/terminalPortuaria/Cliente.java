@@ -30,6 +30,10 @@ public abstract class Cliente {
     public Turno getTurno() {
         return this.turnoCliente;
     }
+    
+    public String getNombre() {
+    	return this.nombre;
+    }
 
     public double getMontoDisponible() {
         return this.montoDisponible;

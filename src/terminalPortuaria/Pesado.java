@@ -6,7 +6,7 @@ public class Pesado extends Servicio {
 		super(precioBase);
 		this.tipo = "Pesado";
 	}
-
+	
 	@Override
 	public double calcularCoste(Container c) {
 		return precioBase;

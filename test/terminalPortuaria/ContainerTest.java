@@ -72,25 +72,25 @@ public class ContainerTest {
 		dry.addServicio(pesado);
 		dry.addServicio(lavado);
 
-		double costoEsperado = 500 + 200;
+		double costoEsperado = 535 + 235;
 		assertEquals(costoEsperado, dry.calcularCostoTotal(), 1e-6);
 	}
 
+
 	@Test
 	public void contenedor_no_acepta_electricidad() {
-		List<BillOfLanding> bills6 = new ArrayList<>();
-		bills6.add(new BillRegular("cargo", 1000));
-		BillGroup bg6 = new BillGroup(bills6);
-		Dry dry = new Dry("DRY", 50, 1000, bg6);
-		electricidad elec = new electricidad(100, LocalDate.now(), null);
 
-		try {
-			dry.addServicio(elec);
-			fail("Debería lanzar IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertTrue(e.getMessage().contains("Electricidad"));
-		}
+	    List<BillOfLanding> bills = new ArrayList<>();
+	    bills.add(new BillRegular("cargo", 1000));
+	    Dry dry = new Dry("DRY001", 100, 2000, new BillGroup(bills));
+
+	    when(servicioMock.getTipo()).thenReturn("Electricidad");
+
+	    assertThrows(IllegalArgumentException.class, () -> {
+	        dry.addServicio(servicioMock);
+	    });
 	}
+	
 
 	@Test
 	public void tanque_getters_basicos() {

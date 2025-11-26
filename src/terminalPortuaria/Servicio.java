@@ -11,4 +11,8 @@ public abstract class Servicio {
 	}
 
 	public abstract double calcularCoste(Container c);
+
+	protected String getTipo() {
+		return this.tipo;
+	}
 }

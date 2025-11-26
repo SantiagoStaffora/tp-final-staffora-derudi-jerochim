@@ -27,6 +27,8 @@ public class TerminalPortuaria {
 		this.setNombre(nombre);
 		this.latitud = latitud;
 		this.longitud = longitud;
+		this.listaCargas = new ArrayList<>();
+		this.listaTurnos = new ListaTurnos(new ArrayList<>());
 	}
 	
 	public void addReporte(Reporte reporte) {

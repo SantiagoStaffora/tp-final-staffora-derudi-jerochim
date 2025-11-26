@@ -25,6 +25,10 @@ public abstract class Turno {
 	long diferencia(LocalDateTime fechaFin) {
 		return(ChronoUnit.HOURS.between(this.fecha, fechaFin));
 	}
+	
+	public String getCamion() {
+		return this.camionId;
+	}
 
 	public LocalDateTime getFecha() {
 		return this.fecha;
@@ -45,10 +49,6 @@ public abstract class Turno {
 	public abstract boolean verificarDemora(Camion camion, ListaTurnos lista);
 	public abstract void operacionPara(Camion camion, TerminalPortuaria terminal);
 
-	//------------------------------------------------------------------------------------------//
-	// REVISAR:
-	// Container NO era el container del camion, si no el que venia a buscar.
-	// Container ahora esta en TurnoConsignee, pero la situacion es la misma.
 	public double facturaPorServiciosAplicados() {
 		return container.calcularCostoTotal();
 	}

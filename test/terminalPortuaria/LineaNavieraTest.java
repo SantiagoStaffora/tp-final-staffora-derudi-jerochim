@@ -175,15 +175,129 @@ public class LineaNavieraTest {
     }
 
     @Test
-    void circuitoMasBarato_lanza_siHayCircuitoQueIncluye() {
+    void circuitoMasBarato_lanza_siNoHayCircuitoQueIncluye() {
         LineaNaviera linea = new LineaNaviera("LN", 1.0);
-        TerminalPortuaria a = new TerminalPortuaria("A", 0, 0);
-        TerminalPortuaria b = new TerminalPortuaria("B", 1, 1);
-        CircuitoMaritimo c = mock(CircuitoMaritimo.class);
-        when(c.estanEnElRecorrido(a, b)).thenReturn(true);
-        linea.registrarCircuito(c);
-
-        assertThrows(IllegalArgumentException.class, () -> linea.circuitoMasBarato(a, b));
+        TerminalPortuaria a = mock(TerminalPortuaria.class);
+        TerminalPortuaria b = mock(TerminalPortuaria.class);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            linea.circuitoMasBarato(a, b);
+        });
     }
 
+    @Test
+    void circuitoMasBarato_retornaElCircuitoConMenorCostoTotal() {
+        // Setup
+        LineaNaviera linea = new LineaNaviera("LN", 10.0); // Precio por milla = 10
+        TerminalPortuaria origen = mock(TerminalPortuaria.class);
+        TerminalPortuaria destino = mock(TerminalPortuaria.class);
+
+        // Mocks de Circuitos
+        CircuitoMaritimo circuitoCaro = mock(CircuitoMaritimo.class);
+        CircuitoMaritimo circuitoBarato = mock(CircuitoMaritimo.class);
+
+        // Configurar comportamiento para que ambos incluyan las terminales
+        // NOTA: Esto asume que corregiste el if a: if(!hayCircuitoQueIncluye(...))
+        when(circuitoCaro.estanEnElRecorrido(origen, destino)).thenReturn(true);
+        when(circuitoBarato.estanEnElRecorrido(origen, destino)).thenReturn(true);
+
+        // Configurar distancias
+        // Caro: 100 millas * 10 precio = 1000
+        // Barato: 50 millas * 10 precio = 500
+        when(circuitoCaro.distanciaEntre(origen, destino)).thenReturn(100.0);
+        when(circuitoBarato.distanciaEntre(origen, destino)).thenReturn(50.0);
+
+        linea.registrarCircuito(circuitoCaro);
+        linea.registrarCircuito(circuitoBarato);
+
+        // Ejecución
+        CircuitoMaritimo resultado = linea.circuitoMasBarato(origen, destino);
+
+        // Assert
+        assertEquals(circuitoBarato, resultado);
+    }
+
+    @Test
+    void circuitoMenosTramosEntre_retornaElCircuitoConMenosEscalas() {
+        LineaNaviera linea = new LineaNaviera("LN", 1.0);
+        TerminalPortuaria origen = mock(TerminalPortuaria.class);
+        TerminalPortuaria destino = mock(TerminalPortuaria.class);
+
+        CircuitoMaritimo circuitoLargo = mock(CircuitoMaritimo.class);
+        CircuitoMaritimo circuitoCorto = mock(CircuitoMaritimo.class);
+
+        when(circuitoLargo.estanEnElRecorrido(origen, destino)).thenReturn(true);
+        when(circuitoCorto.estanEnElRecorrido(origen, destino)).thenReturn(true);
+
+        // Configurar tramos
+        when(circuitoLargo.tramosHasta(origen, destino)).thenReturn(5);
+        when(circuitoCorto.tramosHasta(origen, destino)).thenReturn(2);
+
+        linea.registrarCircuito(circuitoLargo);
+        linea.registrarCircuito(circuitoCorto);
+
+        assertEquals(circuitoCorto, linea.circuitoMenosTramosEntre(origen, destino));
+    }
+
+    @Test
+    void circuitoMenosTiempoEntre_retornaElCircuitoMasRapido() {
+        LineaNaviera linea = new LineaNaviera("LN", 1.0);
+        TerminalPortuaria origen = mock(TerminalPortuaria.class);
+        TerminalPortuaria destino = mock(TerminalPortuaria.class);
+
+        CircuitoMaritimo circuitoLento = mock(CircuitoMaritimo.class);
+        CircuitoMaritimo circuitoRapido = mock(CircuitoMaritimo.class);
+
+        when(circuitoLento.estanEnElRecorrido(origen, destino)).thenReturn(true);
+        when(circuitoRapido.estanEnElRecorrido(origen, destino)).thenReturn(true);
+
+        // Configurar tiempo
+        when(circuitoLento.tiempoDeRecorridoEntre(origen, destino)).thenReturn(24.0); // 24 horas
+        when(circuitoRapido.tiempoDeRecorridoEntre(origen, destino)).thenReturn(12.0); // 12 horas
+
+        linea.registrarCircuito(circuitoLento);
+        linea.registrarCircuito(circuitoRapido);
+
+        assertEquals(circuitoRapido, linea.circuitoMenosTiempoEntre(origen, destino));
+    }
+    
+    @Test
+    void liberarBuque_mueveBuqueDeEnUsoASinUsar() {
+        LineaNaviera linea = new LineaNaviera("LN", 1.0);
+        // Usamos un buque real o mock, pero necesitamos insertarlo en 'buquesEnUso'
+        // Como 'buquesEnUso' es privado y se llena al crear viaje, simulamos el ciclo completo
+        // o asumimos que liberar busca en 'enUso'.
+        
+        // Estrategia: Crear viaje para mover buque a "En Uso" y luego liberarlo.
+        TerminalPortuaria p1 = new TerminalPortuaria("P1", 0,0);
+        TerminalPortuaria p2 = new TerminalPortuaria("P2", 0,0);
+        CircuitoMaritimo c = new CircuitoMaritimo("C", 1.0); 
+        c.agregarPuerto(p1); c.agregarPuerto(p2);
+        linea.registrarCircuito(c);
+        
+        Buque b = mock(Buque.class);
+        linea.registrarBuque(b);
+        linea.setViajes(new ArrayList<>());
+        
+        // El buque pasa a estar en uso
+        linea.crearViaje(LocalDate.now(), p1, p2); 
+        assertFalse(linea.getBuques().contains(b), "El buque debería haber salido de la lista de disponibles");
+
+        // Liberamos
+        linea.liberarBuque(b);
+        assertTrue(linea.getBuques().contains(b), "El buque debería volver a la lista de disponibles");
+    }
+    
+    @Test
+    void registrarBuque_noDuplicaBuques() {
+        LineaNaviera linea = new LineaNaviera("LN", 1.0);
+        Buque b = mock(Buque.class);
+        
+        linea.registrarBuque(b);
+        linea.registrarBuque(b); // Intento duplicado
+        
+        assertEquals(1, linea.getBuques().size());
+    }
+    
+    
 }

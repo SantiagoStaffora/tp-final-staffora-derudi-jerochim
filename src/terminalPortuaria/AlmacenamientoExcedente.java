@@ -7,6 +7,7 @@ public class AlmacenamientoExcedente extends Servicio {
 	public AlmacenamientoExcedente(int precioBase, int diasExcedentes) {
 		super(precioBase);
 		this.diasExcedentes = diasExcedentes;
+		this.tipo = "Almacenamiento excedente";
 	}
 	
 	public double calcularCoste(Container c) {

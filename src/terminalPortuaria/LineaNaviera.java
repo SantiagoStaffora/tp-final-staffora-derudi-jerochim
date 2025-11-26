@@ -146,7 +146,7 @@ public class LineaNaviera {
 	}
 
 	public CircuitoMaritimo circuitoMasBarato(TerminalPortuaria origen, TerminalPortuaria destino) {
-		if(hayCircuitoQueIncluye(origen, destino)) {
+		if(!hayCircuitoQueIncluye(origen, destino)) {
 			throw new IllegalArgumentException("No se encontró ningún circuito que incluya a estas terminales");
 		}
 		
@@ -162,7 +162,7 @@ public class LineaNaviera {
 	}
 
 	public CircuitoMaritimo circuitoMenosTramosEntre(TerminalPortuaria origen, TerminalPortuaria destino) {
-		if(hayCircuitoQueIncluye(origen, destino)) {
+		if(!hayCircuitoQueIncluye(origen, destino)) {
 			throw new IllegalArgumentException("No se encontró ningún circuito que incluya a estas terminales");
 		}
 		
@@ -178,7 +178,7 @@ public class LineaNaviera {
 	}
 
 	public CircuitoMaritimo circuitoMenosTiempoEntre(TerminalPortuaria origen, TerminalPortuaria destino) {
-		if(hayCircuitoQueIncluye(origen, destino)) {
+		if(!hayCircuitoQueIncluye(origen, destino)) {
 			throw new IllegalArgumentException("No se encontró ningún circuito que incluya a estas terminales");
 		}
 		

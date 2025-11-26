@@ -2,7 +2,7 @@ package terminalPortuaria;
 
 public class Dry extends Container {
 
-	public Dry(String identificador, int dimension, int pesoTotal, BillGroup bl) {
+	public Dry(String identificador, int dimension, int pesoTotal, BillOfLanding bl) {
 		super(identificador, dimension, pesoTotal, bl);
 
 	}

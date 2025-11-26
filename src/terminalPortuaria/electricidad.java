@@ -12,12 +12,14 @@ public class electricidad extends Servicio {
 	public electricidad(int precioBase, LocalDate fechaInicio, LocalDate fechaFin) {
 		super(precioBase);
 		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 		this.tipo = "Electricidad";
 	}
 
 	public void setFechaFin(LocalDate fecha) {
 		fechaFin = fecha;
 	}
+	
 	
 	@Override
 	public double calcularCoste(Container c) {
