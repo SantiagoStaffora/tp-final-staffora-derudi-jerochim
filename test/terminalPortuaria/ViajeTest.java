@@ -62,7 +62,7 @@ class ViajeTest {
         TerminalPortuaria terminalMedia = mock(TerminalPortuaria.class);
         LocalDate fechaSalida = viaje.getFecha(); 
         
-        LocalDate llegadaEsperada = fechaSalida.plusDays(5);
+        LocalDate llegadaEsperada = fechaSalida;
         
         when(circuitoMock.fechaLlegadaA_SiSaleEl(terminalMedia, fechaSalida))
             .thenReturn(llegadaEsperada);

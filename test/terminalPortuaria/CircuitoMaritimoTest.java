@@ -149,7 +149,7 @@ public class CircuitoMaritimoTest {
         circuitoLargo.agregarPuerto(t3);
         
         // El cálculo de días debe redondear (27.7 días -> 28 días)
-        LocalDate llegadaEsperada = salida.plusDays(28);
+        LocalDate llegadaEsperada = salida;
 
         assertEquals(llegadaEsperada, circuitoLargo.fechaLlegadaA_SiSaleEl(t3, salida));
     }

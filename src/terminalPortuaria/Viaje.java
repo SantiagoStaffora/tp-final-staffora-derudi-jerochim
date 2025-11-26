@@ -89,8 +89,9 @@ public class Viaje {
 	}
 
 	public LocalDate fechaLlegadaA(TerminalPortuaria destino) {
-		int dias = (int) Math.round(this.circuito.tiempoDeRecorridoEntre(this.origen, destino) / 24);
-		return this.fecha.plusDays(dias);
+		return this.circuito.fechaLlegadaA_SiSaleEl(destino, this.fecha);
+		//int dias = (int) Math.round(this.circuito.tiempoDeRecorridoEntre(this.origen, destino) / 24);
+		//return this.fecha.plusDays(dias);
 	}
 
 	

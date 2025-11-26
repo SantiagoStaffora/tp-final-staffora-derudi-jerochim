@@ -49,7 +49,7 @@ public abstract class Container {
 	}
 	
 	public void addServicio(Servicio s) {
-		if (!"Electricidad".equals(s.tipo)) {
+		if (!"Electricidad".equals(s.getTipo())) {
 			listaServicios.add(s);
 		} else {
 			throw new IllegalArgumentException("Este Container no acepta servicio de electricidad");
